@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>noai | Authentic Browsing Experience</title>
+
+  <!-- Google Fonts: Poppins -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* Basic Reset & Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      scroll-behavior: smooth; /* Smooth scrolling */
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
+    a {
+      text-decoration: none;
+    }
+    
+    /* Container Utility */
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px 0;
+    }
+    
+    /* Navbar */
+    .navbar {
+      background: #fff;
+      padding: 10px 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .navbar .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+    .logo img {
+      height: 40px;
+      margin-right: 10px;
+    }
+    .logo a {
+      color: #333;
+      font-size: 1.5em;
+      font-weight: 700;
+    }
+    .nav-menu {
+      list-style: none;
+      display: flex;
+      align-items: center;
+    }
+    .nav-item {
+      margin-left: 30px;
+    }
+    .nav-link {
+      color: #333;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    .nav-link:hover {
+      color: #6AC2FF;
+    }
+    
+    /* Mobile Menu Toggle */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+    .menu-toggle .bar {
+      height: 3px;
+      width: 25px;
+      background: #333;
+      margin: 4px 0;
+      transition: 0.3s;
+    }
+    
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      background: linear-gradient(135deg, #9F72FF, #6AC2FF);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding-top: 80px; /* offset for fixed navbar */
+      color: #fff;
+    }
+    .hero-content {
+      max-width: 700px;
+    }
+    .hero-content h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    .hero-content p {
+      font-size: 1.2em;
+      margin-bottom: 30px;
+      line-height: 1.4;
+    }
+    .btn {
+      display: inline-block;
+      background: #fff;
+      color: #6AC2FF;
+      padding: 12px 30px;
+      border-radius: 30px;
+      font-size: 1em;
+      font-weight: 600;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .btn:hover {
+      background: #f0f0f0;
+      color: #9F72FF;
+    }
+    
+    /* Sections */
+    section {
+      padding: 80px 0;
+    }
+    section h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2.5em;
+      position: relative;
+      font-weight: 700;
+    }
+    section h2::after {
+      content: '';
+      width: 60px;
+      height: 4px;
+      background: #9F72FF;
+      display: block;
+      margin: 10px auto 0;
+      border-radius: 2px;
+    }
+    
+    /* Features Section */
+    .features .feature-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 20px;
+    }
+    .feature-item {
+      flex: 1 1 45%;
+      background: #fff;
+      margin: 10px;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .feature-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+    }
+    .feature-item h3 {
+      margin-bottom: 10px;
+      color: #9F72FF;
+      font-weight: 600;
+    }
+    
+    /* Market Section */
+    .market ul {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 20px;
+    }
+    .market li {
+      margin-bottom: 10px;
+      font-size: 1.1em;
+    }
+    .market li strong {
+      color: #6AC2FF;
+    }
+    
+    /* Competitive Section */
+    .competitive .competitors {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 20px;
+    }
+    .competitor {
+      flex: 1 1 30%;
+      background: #fff;
+      margin: 10px;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .competitor:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+    }
+    .competitor h3 {
+      color: #9F72FF;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+    .advantage {
+      margin-top: 40px;
+      background: #fafafa;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+    }
+    .advantage h3 {
+      color: #6AC2FF;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+    
+    /* Team Section */
+    .team p {
+      max-width: 700px;
+      margin: 20px auto 0;
+      text-align: center;
+      font-size: 1.1em;
+    }
+    
+    /* CTA Section */
+    .cta {
+      text-align: center;
+      background: #fff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      border-radius: 8px;
+      margin: 40px auto;
+      max-width: 900px;
+      padding: 60px 20px;
+    }
+    .cta h2 {
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    .cta p {
+      font-size: 1.2em;
+      margin-bottom: 30px;
+      color: #555;
+    }
+    
+    /* Footer */
+    footer {
+      background: #fff;
+      text-align: center;
+      padding: 20px 0;
+      box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+    }
+    footer p {
+      color: #777;
+      font-size: 0.9em;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-menu {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background: #fff;
+        flex-direction: column;
+        width: 200px;
+        display: none;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      }
+      .nav-menu.active {
+        display: flex;
+      }
+      .nav-item {
+        margin: 15px 0;
+        text-align: center;
+      }
+      .menu-toggle {
+        display: flex;
+      }
+      .features .feature-list,
+      .competitive .competitors {
+        flex-direction: column;
+      }
+      .feature-item,
+      .competitor {
+        flex: 1 1 100%;
+        margin: 10px 0;
+      }
+      .hero {
+        padding-top: 100px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="container">
+        <div class="logo">
+
+          <img src="logo.png" alt="noai logo" />
+          <a href="#">noai</a>
+        </div>
+        <div class="menu-toggle" id="mobile-menu">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+        <ul class="nav-menu">
+          <li class="nav-item"><a href="#hero" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="#features" class="nav-link">Features</a></li>
+          <li class="nav-item"><a href="#market" class="nav-link">Market</a></li>
+          <li class="nav-item"><a href="#competitive" class="nav-link">Competitive</a></li>
+          <li class="nav-item"><a href="#team" class="nav-link">Team</a></li>
+          <li class="nav-item"><a href="#cta" class="nav-link">Get Started</a></li>
+        </ul>
+      </div>
+    </nav>
+    
+    <section class="hero" id="hero">
+      <div class="container hero-content">
+        <h1>Filter Out AI Noise.</h1>
+        <p>
+          Automatically filter AI-generated media from your search results and
+          experience authentic browsing.
+        </p>
+        <a href="#features" class="btn">Learn More</a>
+      </div>
+    </section> 
+  </header>
+  
+  <main>
+    <section class="features" id="features">
+      <div class="container">
+        <h2>Features</h2>
+        <div class="feature-list">
+          <div class="feature-item">
+            <h3>Real-time AI Detection</h3>
+            <p>Identify and filter AI-generated content instantly.</p>
+          </div>
+          <div class="feature-item">
+            <h3>Automated URL Blacklist</h3>
+            <p>Prevent AI-generated content at the source with our smart blacklist.</p>
+          </div>
+          <div class="feature-item">
+            <h3>Cross-Browser Support</h3>
+            <p>Available on Chrome, Edge, and Firefox for a seamless experience.</p>
+          </div>
+          <div class="feature-item">
+            <h3>User-Driven Customization</h3>
+            <p>Tailor your filtering preferences to suit your needs.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="market" id="market">
+      <div class="container">
+        <h2>Market Opportunity</h2>
+        <p>
+          With growing demand for content authenticity amid the rise of AI-generated media, noai addresses the concerns of users and businesses alike.
+        </p>
+        <ul>
+          <li><strong>TAM:</strong> Increasing global demand for authentic content.</li>
+          <li><strong>SAM:</strong> Users worried about AI content manipulation and misinformation.</li>
+          <li><strong>SOM:</strong> Active browser extension users seeking content filtering solutions.</li>
+        </ul>
+      </div>
+    </section>
+    
+    <section class="competitive" id="competitive">
+      <div class="container">
+        <h2>Competitive Landscape</h2>
+        <div class="competitors">
+          <div class="competitor">
+            <h3>Is Generated</h3>
+            <p>Manual flagging with limited functionality.</p>
+          </div>
+          <div class="competitor">
+            <h3>Google Search AI Block</h3>
+            <p>Attempts to block AI-generated content but falls short in performance.</p>
+          </div>
+          <div class="competitor">
+            <h3>Pre-AI Search</h3>
+            <p>Filters post-2023 content, but lacks precise AI detection.</p>
+          </div>
+        </div>
+        <div class="advantage">
+          <h3>Our Competitive Advantage</h3>
+          <p>
+            Real-time detection, automated URL blacklist, cross-browser support, and user-driven customization—ensuring a superior browsing experience.
+          </p>
+        </div>
+      </div>
+    </section>
+    
+    <section class="team" id="team">
+      <div class="container">
+        <h2>Our Team</h2>
+        <p>
+          Backed by extensive experience in AI detection and web development, our dedicated team is committed to delivering a technically robust and user-friendly product.
+        </p>
+      </div>
+    </section>
+    
+    <section class="cta" id="cta">
+      <div class="container">
+        <h2>Join the Revolution</h2>
+        <p>
+          Download noai for free and start filtering out AI-generated noise today.
+        </p>
+        <a href="#" class="btn">Coming Soon</a>
+      </div>
+    </section>
+  </main>
+  
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 noai. All rights reserved.</p>
+    </div>
+  </footer>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const menuToggle = document.getElementById('mobile-menu');
+      const navMenu = document.querySelector('.nav-menu');
+
+      menuToggle.addEventListener('click', function () {
+        navMenu.classList.toggle('active');
+      });
+
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetSection = document.querySelector(this.getAttribute('href'));
+          targetSection.scrollIntoView({ behavior: 'smooth' });
+          navMenu.classList.remove('active');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
